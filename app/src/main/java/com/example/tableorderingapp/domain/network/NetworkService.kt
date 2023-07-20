@@ -13,7 +13,7 @@ interface NetworkService {
     suspend fun getAllMenu(): ArrayList<AllMenuModelItem>
 
     @POST("TableOrder")
-    suspend fun postAllOrder(@Body postTableOrder: PostTableOrder) : Response<ResponseBody>
+    suspend fun postAllOrder(@Body postTableOrder: PostTableOrder) : ResponseBody
 
     @GET("TableOrder/ordertableamount/{tablenumber}")
     suspend fun getAmountOrOrders(@Path("tablenumber")tablenumber:Int): Response<PostTableOrder>

@@ -1,6 +1,7 @@
 package com.example.tableorderingapp.domain.repository
 
 import com.example.tableorderingapp.domain.model.request.NeedAssistance
+import com.example.tableorderingapp.domain.model.request.PostTableOrder
 import com.example.tableorderingapp.domain.model.response.AllMenuModelItem
 import com.example.tableorderingapp.domain.model.response.AssistanceStatusResponse
 import com.example.tableorderingapp.domain.network.NetworkService
@@ -41,6 +42,18 @@ class NetworkRepositoryImpl(private val networkService: NetworkService):NetworkR
         emit(ResultState.Loading)
         try {
             val response = networkService.getAssistanceStatus(tablenumber)
+            emit(ResultState.Success(response))
+
+        }
+        catch (e: Exception) {
+            emit(ResultState.Error(e))
+        }
+    }
+
+    override suspend fun postAllOrders(postTableOrder: PostTableOrder): Flow<ResultState<ResponseBody>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val response = networkService.postAllOrder(postTableOrder)
             emit(ResultState.Success(response))
 
         }
