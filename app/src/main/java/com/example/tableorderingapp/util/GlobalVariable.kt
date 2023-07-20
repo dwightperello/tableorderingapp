@@ -9,4 +9,6 @@ object GlobalVariable {
     var itemToaddToCart: Submenu?= null
 
     var orderdetail:MutableList<Orderdetail>? = mutableListOf()
+
+    var tablenumber:Int?= null
 }

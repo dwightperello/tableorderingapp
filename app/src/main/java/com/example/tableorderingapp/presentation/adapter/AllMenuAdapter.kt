@@ -40,7 +40,6 @@ class AllMenuAdapter(private val activity: Activity): RecyclerView.Adapter<AllMe
         holder.itemView.setOnClickListener {
             if(activity is MainActivity){
                 activity.showsubmenu(menus)
-
             }
         }
     }

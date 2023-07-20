@@ -31,7 +31,7 @@
             android:id="@+id/rv_allmenu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="1.5" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -49,6 +49,7 @@
                 android:textSize="20dp"/>
 
             <TextView
+                android:id="@+id/txt_callassistance"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -56,6 +57,14 @@
                 android:textColor="@color/white"
                 android:text="Call assistance"
                 android:textSize="20dp"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/baseline_app_settings_alt_24"
+                android:id="@+id/iv_settings"/>
 
 <!--            <LinearLayout-->
 <!--                android:layout_width="0dp"-->
