@@ -11,4 +11,6 @@ object GlobalVariable {
     var orderdetail:MutableList<Orderdetail>? = mutableListOf()
 
     var tablenumber:Int?= null
+
+    var recomendedItem:ArrayList<Submenu>?= ArrayList<Submenu>()
 }

@@ -87,39 +87,11 @@ class SubMenuItemAdapter(private val activity: Activity): RecyclerView.Adapter<S
             }
         }
 
-//        holder.add.setOnClickListener {
-//            var qty=  holder.counter.text.toString()
-//            intValue = qty.toInt()
-//            intValue = intValue + 1
-//            sum=amount * intValue
-//            holder.counter.text= intValue.toString()
-//
-//            val decimalFormat = DecimalFormat("#.00")
-//            val formattedNumber = decimalFormat.format(sum)
-//            Log.d("formattednumber",sum.toString())
-////            _binding!!.txtitemprice.text=formattedNumber.toString()
-//           holder.btncheckout.isVisible=true
-//        }
-//
-//        holder.minus.setOnClickListener {
-//            if(intValue<=0){
-//                holder.btncheckout.isVisible=false
-//                return@setOnClickListener
-//            }
-//            intValue=intValue-1
-//            sum=amount * intValue
-//            val decimalFormat = DecimalFormat("#.00")
-//            val formattedNumber = decimalFormat.format(sum)
-//            holder.counter.text= intValue.toString()
-//            Log.d("formattednumber",sum.toString())
-//        }
-
-//        holder.txt.setOnClickListener {
-//            if(activity is MainActivity){
-//                activity.showsubmenu(menus)
-//
-//            }
-//        }
+        holder.btncheckout.setOnClickListener {
+            if(activity is MainActivity){
+                activity.showCheckout()
+            }
+        }
     }
 
     fun subproductItems(list: List<Submenu>) {

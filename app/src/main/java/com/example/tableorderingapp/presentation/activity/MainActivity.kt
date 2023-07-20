@@ -51,6 +51,11 @@ class MainActivity : BaseActivity() {
         sharedPreferences = applicationContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         GlobalVariable.tablenumber= sharedPreferences.getInt("tablenumber",0)
 
+        init()
+    }
+
+    //region FETCH DATA
+    val init={
         viewModel.allmenu.observe(this,{
                 state -> ProcessAllItemsResponse(state)
         })
@@ -58,7 +63,7 @@ class MainActivity : BaseActivity() {
         subMenuItemAdapter= SubMenuItemAdapter(this)
 
         _binding.ivSettings.setOnClickListener {
-           showSettingsPin()
+            showSettingsPin()
         }
 
         _binding.txtCallassistance.setOnClickListener {
@@ -68,7 +73,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    //endregion
 
+    //region ALL VIEW
     private fun ProcessAllItemsResponse(state: ResultState<ArrayList<AllMenuModelItem>>){
         when(state){
             is ResultState.Loading ->{
@@ -86,7 +93,7 @@ class MainActivity : BaseActivity() {
                 // _binding!!.rvRecomendeddishesList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL,false)
                 _binding!!.rvAllmenu.layoutManager =  LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
                 state.data?.let { allmenuitemadapater.productItems(it) }
-               // if(TempMngr.recomendedItem.isNullOrEmpty()) PopulateRecommendedItems(state.data!!)
+                if(GlobalVariable.recomendedItem.isNullOrEmpty()) PopulateRecommendedItems(state.data!!)
             }
             is ResultState.Error->{
                 hideProgressDialog()
@@ -104,16 +111,22 @@ class MainActivity : BaseActivity() {
         submenu.let { subMenuItemAdapter.subproductItems(submenu!!) }
     }
 
+    //endregion
+
+    //region NAVIGATION
     fun showbottomfragment(menus: Submenu) {
         GlobalVariable.itemToaddToCart=menus
         val intent = Intent(this, AddToCartActivity::class.java)
         startActivity(intent)
     }
-
-    override fun onResume() {
-        super.onResume()
-        subMenuItemAdapter.reloadItems()
+    fun showCheckout() {
+        val intent = Intent(this, CheckoutActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.screenslideright,
+        R.anim.screen_slide_out_left);
     }
+
+    //endregion
 
     //region SETTING TABLE NUMBER
     var tablenumber:String?= null
@@ -279,5 +292,34 @@ class MainActivity : BaseActivity() {
             else -> {}
         }
     }
+
+
     //endregion
+
+
+    val PopulateRecommendedItems:(List<AllMenuModelItem>)->Unit={
+        it.forEach {
+            it.submenu.forEach {
+                if (it.isRecommended == true) {
+                    var items = Submenu(
+                        id = it.id,
+                        description = it.description,
+                        imageURL = it.imageURL,
+                        isRecommended = it.isRecommended,
+                        price = it.price,
+                        menuId = it.menuId,
+                        name = it.name,
+                        tag = it.tag,
+                        isAvailable = it.isAvailable
+                    )
+                    GlobalVariable.recomendedItem?.add(items)
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        subMenuItemAdapter.reloadItems()
+    }
 }

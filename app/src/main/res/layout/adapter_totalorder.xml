@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:layout_marginStart="@dimen/_5sdp"
+    android:layout_marginEnd="@dimen/_5sdp"
+
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/viewMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="7">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtItemName_checkout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Capricosa"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_8sdp"
+                    android:fontFamily="@font/lato_bolditalic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    android:backgroundTint="@color/order"
+                    android:foregroundGravity="right"
+                    android:layout_gravity="right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_delete_24"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"/>
+
+
+
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txtItemPrice_checkout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$23.50"
+                    android:fontFamily="@font/lato_regular"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_8sdp"
+                    />
+                <TextView
+                    android:id="@+id/txtqty_checkout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5x"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="@font/lato_regular"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_8sdp"
+                    />
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
