@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp"
+    android:backgroundTint="#80000000"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_recommended_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:contentDescription="recommended"
+                android:scaleType="fitXY"
+                tools:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:id="@+id/card_recommended_tag_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+
+                android:elevation="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/iv_cart_info_recommended"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="image_contentDescription"
+                    />
+            </LinearLayout>
+
+
+
+
+
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_recommended_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Text 1"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="@dimen/_7sdp"
+                android:fontFamily="@font/lato_regular"
+
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+
+
+            <TextView
+                android:id="@+id/txtitemprice_recommended"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Text 2"
+                android:textSize="@dimen/_7sdp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/lato_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_recommended_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_addcart_recommended"
+                android:backgroundTint="@color/buttonbg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbutton"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="@dimen/_7sdp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Add"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -12,11 +12,7 @@
         android:src="@drawable/chicken"
         android:scaleType="fitXY" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_submenu_images"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,7 +116,13 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:layout_marginStart="@dimen/_10sdp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rv_recommended"/>
 
         </LinearLayout>
 

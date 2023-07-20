@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tableorderingapp.domain.model.request.NeedAssistance
+import com.example.tableorderingapp.domain.model.request.PostTableOrder
 import com.example.tableorderingapp.domain.model.response.AllMenuModelItem
 import com.example.tableorderingapp.domain.model.response.AssistanceStatusResponse
 import com.example.tableorderingapp.domain.repository.NetworkRepositoryImpl
@@ -28,6 +29,12 @@ class Service_viewmodel@Inject constructor (private val networkRepositoryImpl: N
 
     private var _assistancestatus :MutableLiveData<ResultState< AssistanceStatusResponse>> = MutableLiveData()
     val assistancestatus:LiveData<ResultState<AssistanceStatusResponse>> get() = _assistancestatus
+
+    private var _postorder:MutableLiveData <ResultState<ResponseBody>?> = MutableLiveData()
+    val postorder:LiveData<ResultState<ResponseBody>?>  get()= _postorder
+
+
+
     init {
         getAllMenu()
     }
@@ -57,6 +64,16 @@ class Service_viewmodel@Inject constructor (private val networkRepositoryImpl: N
             networkRepositoryImpl.getAssistanceStatus(tablenumber)
                 .onEach {
                     _assistancestatus.value=it
+                }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    fun postAllORder(postTableOrder: PostTableOrder){
+        viewModelScope.launch(Dispatchers.IO) {
+            networkRepositoryImpl.postAllOrders(postTableOrder)
+                .onEach {
+                    _postorder.value=it
                 }
                 .launchIn(viewModelScope)
         }

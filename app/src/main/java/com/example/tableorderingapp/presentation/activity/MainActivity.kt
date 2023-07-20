@@ -322,4 +322,8 @@ class MainActivity : BaseActivity() {
         super.onResume()
         subMenuItemAdapter.reloadItems()
     }
+
+    override fun onBackPressed() {
+
+    }
 }
