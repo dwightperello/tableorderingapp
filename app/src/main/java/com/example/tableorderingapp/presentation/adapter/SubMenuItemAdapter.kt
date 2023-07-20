@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.example.tableorderingapp.databinding.SubmenuitemAdapterBinding
 import com.example.tableorderingapp.domain.model.response.Submenu
 import com.example.tableorderingapp.presentation.activity.MainActivity
@@ -51,7 +53,8 @@ class SubMenuItemAdapter(private val activity: Activity): RecyclerView.Adapter<S
         val menus= allsubmenu[position]
         Glide.with(activity)
             .load(menus.imageURL)
-            //.circleCrop()
+            .apply(RequestOptions.centerCropTransform())
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.ivAllImage)
 
         holder.tvAllTitle.text = menus.name

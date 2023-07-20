@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.tableorderingapp.R
 import com.example.tableorderingapp.databinding.ActivityMainBinding
 import com.example.tableorderingapp.domain.converter.ConvertNeedAssistance
@@ -37,6 +38,7 @@ class MainActivity : BaseActivity() {
     private lateinit var allmenuitemadapater: AllMenuAdapter
     private lateinit var subMenuItemAdapter: SubMenuItemAdapter
     private lateinit var sharedPreferences: SharedPreferences
+    val snapHelper = LinearSnapHelper()
 
     var menuitemClicked:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,8 +94,21 @@ class MainActivity : BaseActivity() {
                 _binding!!.rvAllmenu.adapter = allmenuitemadapater
                 // _binding!!.rvRecomendeddishesList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL,false)
                 _binding!!.rvAllmenu.layoutManager =  LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-                state.data?.let { allmenuitemadapater.productItems(it) }
+                state.data?.let {
+                    allmenuitemadapater.productItems(it)
+                    var firstitem= it[0]
+                    var show=firstitem.submenu
+                    _binding!!.rvSubmenu.adapter = subMenuItemAdapter
+                    // _binding!!.rvRecomendeddishesList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL,false)
+                    _binding!!.rvSubmenu.layoutManager =  LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+
+                    snapHelper.attachToRecyclerView(_binding.rvSubmenu)
+                    show.let { subMenuItemAdapter.subproductItems(show!!) }
+                }
                 if(GlobalVariable.recomendedItem.isNullOrEmpty()) PopulateRecommendedItems(state.data!!)
+
+
+
             }
             is ResultState.Error->{
                 hideProgressDialog()
@@ -108,6 +123,8 @@ class MainActivity : BaseActivity() {
         _binding!!.rvSubmenu.adapter = subMenuItemAdapter
         // _binding!!.rvRecomendeddishesList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL,false)
         _binding!!.rvSubmenu.layoutManager =  LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+
+        snapHelper.attachToRecyclerView(_binding.rvSubmenu)
         submenu.let { subMenuItemAdapter.subproductItems(submenu!!) }
     }
 

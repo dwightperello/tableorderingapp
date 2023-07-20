@@ -140,9 +140,14 @@ class CheckoutActivity : BaseActivity() {
             showYourOrders()
         }
         else{
-
-            showYourOrders()
-            computeTotal(GlobalVariable.orderdetail!!.toList())
+            val intent = Intent(this@CheckoutActivity, MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(
+                R.anim.screenslideleft, R.anim.screen_slide_out_right,
+            );
+            finish()
+//            showYourOrders()
+//            computeTotal(GlobalVariable.orderdetail!!.toList())
         }
     }
 
