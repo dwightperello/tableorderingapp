@@ -16,7 +16,7 @@ interface NetworkService {
     suspend fun postAllOrder(@Body postTableOrder: PostTableOrder) : ResponseBody
 
     @GET("TableOrder/ordertableamount/{tablenumber}")
-    suspend fun getAmountOrOrders(@Path("tablenumber")tablenumber:Int): Response<PostTableOrder>
+    suspend fun getAmountOrOrders(@Path("tablenumber")tablenumber:Int): PostTableOrder
 
     @GET("TableAssistance/GetAssistanceStatus")
     suspend fun getAssistanceStatus(@Query("tablenumber")tablenumber:Int): AssistanceStatusResponse

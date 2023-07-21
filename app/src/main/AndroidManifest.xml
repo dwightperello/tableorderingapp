@@ -17,20 +17,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.activity.CheckoutActivity"
-            android:screenOrientation="landscape"
+            android:name=".presentation.activity.OrderStatus"
             android:exported="false"
             android:theme="@style/Theme.saving.nobar"/>
         <activity
-            android:name=".presentation.activity.SettingsActivity"
+            android:name=".presentation.activity.CheckoutActivity"
+            android:exported="false"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.saving.nobar" />
+        <activity
+            android:name=".presentation.activity.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.saving.nobar" />
         <activity
             android:name=".presentation.activity.AddToCartActivity"
-            android:screenOrientation="landscape"
             android:exported="false"
+            android:screenOrientation="landscape"
             android:theme="@style/CustomDialog" />
         <activity
             android:name=".presentation.activity.MainActivity"

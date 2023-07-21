@@ -10,9 +10,8 @@ import okhttp3.ResponseBody
 
 interface NetworkRepository {
     suspend fun getAllMenu() : Flow<ResultState<ArrayList<AllMenuModelItem>>>
-
     suspend fun CallAssistance(tablenumber:Int,needAssistance: NeedAssistance):Flow<ResultState<ResponseBody>>
     suspend fun getAssistanceStatus(tablenumber: Int):Flow<ResultState<AssistanceStatusResponse>>
-
     suspend fun postAllOrders(postTableOrder: PostTableOrder):Flow<ResultState<ResponseBody>>
+    suspend fun getTotalAmountTable(tablenumber: Int):Flow<ResultState<PostTableOrder>>
 }

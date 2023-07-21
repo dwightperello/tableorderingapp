@@ -33,6 +33,9 @@ class Service_viewmodel@Inject constructor (private val networkRepositoryImpl: N
     private var _postorder:MutableLiveData <ResultState<ResponseBody>?> = MutableLiveData()
     val postorder:LiveData<ResultState<ResponseBody>?>  get()= _postorder
 
+    private var _totalamount:MutableLiveData <ResultState<PostTableOrder>> = MutableLiveData()
+    val totalamount:LiveData<ResultState<PostTableOrder>>  get()= _totalamount
+
 
 
     init {
@@ -74,6 +77,16 @@ class Service_viewmodel@Inject constructor (private val networkRepositoryImpl: N
             networkRepositoryImpl.postAllOrders(postTableOrder)
                 .onEach {
                     _postorder.value=it
+                }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    fun getTotalAmount(tablenumber: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            networkRepositoryImpl.getTotalAmountTable(tablenumber)
+                .onEach {
+                    _totalamount.value=it
                 }
                 .launchIn(viewModelScope)
         }

@@ -75,7 +75,10 @@ class MainActivity : BaseActivity() {
         }
 
         _binding.txtYourorder.setOnClickListener {
-
+            val intent = Intent(this, OrderStatus::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.screenslideright,
+                R.anim.screen_slide_out_left);
         }
 
     }

@@ -61,4 +61,16 @@ class NetworkRepositoryImpl(private val networkService: NetworkService):NetworkR
             emit(ResultState.Error(e))
         }
     }
+
+    override suspend fun getTotalAmountTable(tablenumber: Int): Flow<ResultState<PostTableOrder>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val response = networkService.getAmountOrOrders(tablenumber)
+            emit(ResultState.Success(response))
+
+        }
+        catch (e: Exception) {
+            emit(ResultState.Error(e))
+        }
+    }
 }
