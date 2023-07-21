@@ -1,9 +1,12 @@
 package com.example.tableorderingapp.presentation.activity
 
 import android.graphics.Color
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.MediaController
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -52,6 +55,8 @@ class OrderStatus : BaseActivity() {
         _binding.backArrowToMain.setOnClickListener {
             backpress()
         }
+
+        playvideo()
     }
 
     private fun ProcessAllItemsResponse(state: ResultState<PostTableOrder>){
@@ -97,4 +102,21 @@ class OrderStatus : BaseActivity() {
         );
         finish()
     }
+
+    val playvideo={
+        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.companyprofile)
+
+        // Set up a media controller to control the video playback
+        val mediaController = MediaController(this)
+        mediaController.setAnchorView(_binding.videoScreen)
+        _binding.videoScreen.setMediaController(mediaController)
+
+        // Set the video URI to the VideoView and start playing the video
+        _binding.videoScreen.setVideoURI(videoUri)
+        _binding.videoScreen.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer ->
+            mediaPlayer.isLooping = true // Set this to true if you want the video to loop
+            mediaPlayer.start()
+        })
+    }
+
 }

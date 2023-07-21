@@ -11,4 +11,5 @@
     <color name="buttonbg">#FFB067</color>
     <color name="order">#462f4d</color>
     <color name="gray">#928E85</color>
+    <color name="fade">#80000000</color>
 </resources>

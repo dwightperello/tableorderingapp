@@ -101,9 +101,23 @@
         <!--RIGHT-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_marginStart="@dimen/_10sdp">
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:orientation="vertical"
+            android:backgroundTint="@color/fade"
+            android:background="@color/fade"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+           >
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/video_screen"
+                android:background="@color/fade"
+                android:backgroundTint="@color/fade"/>
 
 
 
