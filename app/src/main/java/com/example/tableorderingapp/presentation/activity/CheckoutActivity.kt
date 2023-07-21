@@ -49,11 +49,7 @@ class CheckoutActivity : BaseActivity() {
 
     val init={
         _binding.backArrowToMain.setOnClickListener {
-            onBackPressed()
-            overridePendingTransition(
-                R.anim.screenslideleft, R.anim.screen_slide_out_right,
-            );
-            finish()
+           backpress()
         }
         showYourOrders()
         computeTotal(GlobalVariable.orderdetail!!.toList())
@@ -124,7 +120,6 @@ class CheckoutActivity : BaseActivity() {
         _binding!!.rvRecommended.layoutManager = GridLayoutManager(this, 3)
         if(GlobalVariable.recomendedItem?.size!! >0){
             recommendedAdapter.productItemsRecommended(GlobalVariable.recomendedItem!!.toList())}
-
     }
 
     fun deleteItem(menus: Orderdetail) {
@@ -140,14 +135,7 @@ class CheckoutActivity : BaseActivity() {
             showYourOrders()
         }
         else{
-            val intent = Intent(this@CheckoutActivity, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(
-                R.anim.screenslideleft, R.anim.screen_slide_out_right,
-            );
-            finish()
-//            showYourOrders()
-//            computeTotal(GlobalVariable.orderdetail!!.toList())
+            backpress()
         }
     }
 
@@ -161,7 +149,7 @@ class CheckoutActivity : BaseActivity() {
                 if(state.data!=null) {
                     hideProgressDialog()
                     GlobalVariable.orderdetail= arrayListOf()
-                    GlobalVariable.recomendedItem = arrayListOf()
+                    //GlobalVariable.recomendedItem = arrayListOf()
                     showdialog()
                 }
 
@@ -176,6 +164,14 @@ class CheckoutActivity : BaseActivity() {
 
     }
 
+    val backpress={
+        onBackPressed()
+        overridePendingTransition(
+            R.anim.screenslideleft, R.anim.screen_slide_out_right,
+        );
+        finish()
+    }
+
     val showdialog={
         AestheticDialog.Builder(this, DialogStyle.FLASH, DialogType.SUCCESS)
             .setTitle("Success")
@@ -187,12 +183,7 @@ class CheckoutActivity : BaseActivity() {
             .setOnClickListener(object : OnDialogClickListener {
                 override fun onClick(dialog: AestheticDialog.Builder) {
                     dialog.dismiss()
-                    val intent = Intent(this@CheckoutActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(
-                        R.anim.screenslideleft, R.anim.screen_slide_out_right,
-                    );
-                    finish()
+                    backpress()
                 }
             })
             .show()

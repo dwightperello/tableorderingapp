@@ -78,6 +78,9 @@ class SubMenuItemAdapter(private val activity: Activity): RecyclerView.Adapter<S
         if(!GlobalVariable.orderdetail.isNullOrEmpty()){
             holder.btncheckout.isVisible=true
             holder.btncheckout.text= "Checkout ${GlobalVariable.orderdetail!!.size}"
+        }else
+        {
+            holder.btncheckout.isVisible=false
         }
 
       //   holder.tvAllPrice.text = menus.price.toString()

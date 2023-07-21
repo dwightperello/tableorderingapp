@@ -32,7 +32,7 @@
                 android:layout_marginBottom="@dimen/_10sdp">
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:src="@drawable/ic_arrow_back"
@@ -42,6 +42,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:text="Your Orders"
                     android:textSize="@dimen/_10sdp"
                     android:textColor="@color/white"/>
