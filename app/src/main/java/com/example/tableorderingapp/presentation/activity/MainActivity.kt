@@ -33,7 +33,7 @@ import java.time.temporal.Temporal
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
-    private lateinit var _binding:ActivityMainBinding
+    private lateinit var _binding: ActivityMainBinding
     private val viewModel: Service_viewmodel by viewModels()
     private lateinit var allmenuitemadapater: AllMenuAdapter
     private lateinit var subMenuItemAdapter: SubMenuItemAdapter
@@ -73,6 +73,11 @@ class MainActivity : BaseActivity() {
             else showDialogboxCancelassistance()
 
         }
+
+        _binding.txtYourorder.setOnClickListener {
+
+        }
+
     }
 
     //endregion

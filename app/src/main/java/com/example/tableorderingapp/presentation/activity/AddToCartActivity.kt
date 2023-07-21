@@ -26,6 +26,7 @@ class AddToCartActivity : AppCompatActivity() {
     var sum:Double=0.0
     var intValue:Int=0
     var tag: Int=0
+    var imageurl:String?=null
     var ordername:String?=null
     var gson= Gson()
 
@@ -57,6 +58,7 @@ class AddToCartActivity : AppCompatActivity() {
         _binding!!.tvSubmenuName.text=it.name.plus(" (${originalAmount})")
         originalAmountToInclude = it.price
         amount=it.price
+        imageurl=it.imageURL
 
         _binding!!.ivCartAdd.setOnClickListener {
             var qty= _binding!!.qtyCounter.text.toString()
@@ -96,7 +98,8 @@ class AddToCartActivity : AppCompatActivity() {
                     price = sum,
                     qty = intValue,
                     tableOrderId = 0,
-                    originalPrice = originalAmountToInclude
+                    originalPrice = originalAmountToInclude,
+                    imageURL = imageurl!!
                 )
                 GlobalVariable.orderdetail!!.add(orderdetail)
                 val item = gson.toJson(GlobalVariable.orderdetail)

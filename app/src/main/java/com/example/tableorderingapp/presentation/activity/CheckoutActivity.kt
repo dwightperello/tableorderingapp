@@ -95,7 +95,8 @@ class CheckoutActivity : BaseActivity() {
                 price = submenu.price,
                 qty = 1,
                 tableOrderId = 0,
-                originalPrice = submenu.price
+                originalPrice = submenu.price,
+                imageURL = submenu.imageURL
             )
             GlobalVariable.orderdetail!!.add(orderdetail)
 

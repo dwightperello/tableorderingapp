@@ -31,22 +31,26 @@
             android:id="@+id/rv_allmenu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5" />
+            android:layout_weight="1.4" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:orientation="horizontal"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_10sdp">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="16dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:text="Your order"
-                android:textSize="20dp"/>
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:id="@+id/txt_yourorder"/>
 
             <TextView
                 android:id="@+id/txt_callassistance"
@@ -65,6 +69,8 @@
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_app_settings_alt_24"
                 android:id="@+id/iv_settings"/>
+
+
 
 <!--            <LinearLayout-->
 <!--                android:layout_width="0dp"-->
@@ -95,6 +101,36 @@
 
 
 
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_7sdp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_8sdp"
+                android:gravity="center"
+                android:text="Powered by: A2Z Solutions.PH"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

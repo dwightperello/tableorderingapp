@@ -7,5 +7,6 @@ data class Orderdetail(
     val price: Double,
     val originalPrice: Double,
     val qty: Int,
+    val imageURL:String,
     val tableOrderId: Int
 )
