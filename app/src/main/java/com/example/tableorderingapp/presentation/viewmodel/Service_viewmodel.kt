@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tableorderingapp.domain.model.request.NeedAssistance
 import com.example.tableorderingapp.domain.model.request.PostTableOrder
+import com.example.tableorderingapp.domain.model.request.updateCCpayment
 import com.example.tableorderingapp.domain.model.response.AllMenuModelItem
 import com.example.tableorderingapp.domain.model.response.AssistanceStatusResponse
+import com.example.tableorderingapp.domain.model.response.CCpaymentOrderDetails
 import com.example.tableorderingapp.domain.repository.NetworkRepositoryImpl
 import com.example.tableorderingapp.util.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +37,12 @@ class Service_viewmodel@Inject constructor (private val networkRepositoryImpl: N
 
     private var _totalamount:MutableLiveData <ResultState<PostTableOrder>> = MutableLiveData()
     val totalamount:LiveData<ResultState<PostTableOrder>>  get()= _totalamount
+
+    private var _paybycard:MutableLiveData<ResultState<CCpaymentOrderDetails>> = MutableLiveData()
+    val paybycard:LiveData<ResultState<CCpaymentOrderDetails>> get() = _paybycard
+
+    private var _updateccpayment:MutableLiveData<ResultState<ResponseBody>> = MutableLiveData()
+    val updateccpayment:LiveData<ResultState<ResponseBody>> get() = _updateccpayment
 
 
 
@@ -87,6 +95,26 @@ class Service_viewmodel@Inject constructor (private val networkRepositoryImpl: N
             networkRepositoryImpl.getTotalAmountTable(tablenumber)
                 .onEach {
                     _totalamount.value=it
+                }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    fun PaybyCard(tablenumber: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            networkRepositoryImpl.PayByCard(tablenumber)
+                .onEach {
+                    _paybycard.value=it
+                }
+                .launchIn(viewModelScope)
+        }
+    }
+
+    fun updateCCpayment(tablenumber: Int,updateCCpayment: updateCCpayment){
+        viewModelScope.launch(Dispatchers.IO) {
+            networkRepositoryImpl.UpdatePaybyCard(tablenumber,updateCCpayment)
+                .onEach {
+                    _updateccpayment.value=it
                 }
                 .launchIn(viewModelScope)
         }

@@ -39,7 +39,7 @@
                     android:id="@+id/txt_your_orders"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:layout_weight="6"
                     android:fontFamily="@font/lato_regular"
                     android:text="Please wait while we prepaire"
@@ -49,15 +49,147 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:id="@+id/rv_check_order_status"/>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
 
-                >
+            <FrameLayout
+                android:id="@+id/fram_left"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_ref_number"
+                            android:fontFamily="@font/latobold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:text="#1234567"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/_5sdp">
+                        <TextView
+                            android:fontFamily="@font/lato_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="tablenumber"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:id="@+id/txt_table_num"/>
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/lato_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="date"
+                            android:textColor="@color/white"
+                            android:id="@+id/txt_date"/>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/lato_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Var"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:id="@+id/txt_vat"/>
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/lato_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="vat amount"
+                            android:textColor="@color/white"
+                            android:id="@+id/txt_vat_amount"/>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/lato_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Discount"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:id="@+id/txt_discount"/>
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                             android:fontFamily="@font/lato_regular"
+                             android:textSize="@dimen/_8sdp"
+                             android:gravity="center"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_weight="1"
+                             android:text="service charge"
+                             android:textColor="@color/white"
+                             android:id="@+id/txt_service_charge"/>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/lato_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="total"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:id="@+id/txt_total"/>
+
+                    </LinearLayout>
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp">-->
+
+
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp">-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp">-->
+
+
+<!--                    </LinearLayout>-->
+
+                </LinearLayout>
+
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,20 +203,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:background="@drawable/roundedbutton"
-                        android:backgroundTint="@color/buttonbg"
+
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp">
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatButton
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="100"
+                            android:text="Pay"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10sdp"
                             android:gravity="center"
-                            android:id="@+id/txt_total_amount"/>
+                            android:background="@drawable/roundedbutton"
+                            android:backgroundTint="@color/buttonbg"
+                            android:id="@+id/btn_paycc"/>
                     </LinearLayout>
 
 
@@ -101,7 +234,7 @@
         <!--RIGHT-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center"
             android:layout_gravity="center"
@@ -109,16 +242,24 @@
             android:orientation="vertical"
             android:backgroundTint="@color/fade"
             android:background="@color/fade"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+
            >
-            <VideoView
+            <TextView
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:id="@+id/txt_warning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_screen"
-                android:background="@color/fade"
-                android:backgroundTint="@color/fade"/>
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/lato_bolditalic"
+                android:textColor="@color/white"
+                android:text="Please ask for assistance to enable card payment. If you already did, kindly wait while system prepaires you total bill. Thank you."/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rv_cc_details"/>
 
 
         </LinearLayout>

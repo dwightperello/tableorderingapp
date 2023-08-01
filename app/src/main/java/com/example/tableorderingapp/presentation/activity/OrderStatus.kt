@@ -1,30 +1,38 @@
 package com.example.tableorderingapp.presentation.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.view.Gravity
 import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tableorderingapp.R
 import com.example.tableorderingapp.databinding.ActivityOrderStatusBinding
+import com.example.tableorderingapp.domain.converter.convertPaymaya
+import com.example.tableorderingapp.domain.converter.convertUpdateccpayment
 import com.example.tableorderingapp.domain.model.request.Orderdetail
-import com.example.tableorderingapp.domain.model.request.PostTableOrder
-import com.example.tableorderingapp.domain.model.response.AllMenuModelItem
-import com.example.tableorderingapp.presentation.adapter.AllMenuAdapter
+import com.example.tableorderingapp.domain.model.response.CCpaymentOrderDetails
 import com.example.tableorderingapp.presentation.adapter.CheckOrderStatusAdapter
 import com.example.tableorderingapp.presentation.viewmodel.Service_viewmodel
 import com.example.tableorderingapp.util.GlobalVariable
 import com.example.tableorderingapp.util.ResultState
-import com.example.tableorderingapp.util.showCustomToast
+import com.paymaya.sdk.android.checkout.PayMayaCheckout
+import com.paymaya.sdk.android.common.LogLevel
+import com.paymaya.sdk.android.common.PayMayaEnvironment
+import com.thecode.aestheticdialogs.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
-import java.time.temporal.Temporal
+import okhttp3.ResponseBody
+
 
 @AndroidEntryPoint
 class OrderStatus : BaseActivity() {
@@ -34,6 +42,12 @@ class OrderStatus : BaseActivity() {
     private lateinit var checkOrderStatusAdapter: CheckOrderStatusAdapter
     var orders:List<Orderdetail>?= null
 
+    val payMayaCheckoutClient = PayMayaCheckout.newBuilder()
+        .clientPublicKey("pk-Z0OSzLvIcOI2UIvDhdTGVVfRSSeiGStnceqwUE7n0Ah")
+        .environment(PayMayaEnvironment.SANDBOX)
+        .logLevel(LogLevel.ERROR)
+        .build()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
@@ -42,58 +56,135 @@ class OrderStatus : BaseActivity() {
         )
         _binding= ActivityOrderStatusBinding.inflate(layoutInflater)
         setContentView(_binding.root)
+        payMayaCheckoutClient
         init()
+        _binding.btnPaycc.setOnClickListener {
+            var ch= convertPaymaya.BuildPaymayaCheckoutRequest()
+            payMayaCheckoutClient.startCheckoutActivityForResult(this,ch)
+        }
     }
 
     val init={
-        viewModel.totalamount.observe(this,{
-                state -> ProcessAllItemsResponse(state)
-        })
-
-        viewModel.getTotalAmount(GlobalVariable.tablenumber!!)
+        viewModel.PaybyCard(GlobalVariable.tablenumber!!)
 
         _binding.backArrowToMain.setOnClickListener {
             backpress()
         }
 
-        playvideo()
+
     }
 
-    private fun ProcessAllItemsResponse(state: ResultState<PostTableOrder>){
-        when(state){
-            is ResultState.Loading ->{
-                showCustomProgressDialog()
-            }
-            is ResultState.Success->{
-                hideProgressDialog()
-                orders= state.data!!.orderdetails
-                if(orders.isNullOrEmpty())_binding.txtYourOrders.text="Come back when you have ordered"
-                val black = "#000000"
-                val blackColorInt = Color.parseColor(black)
-                val superLightBlack = Color.argb(100, Color.red(blackColorInt), Color.green(blackColorInt), Color.blue(blackColorInt))
-                _binding.linearLeft.setBackgroundColor(superLightBlack)
+    override fun onStart() {
+        super.onStart()
 
-                checkOrderStatusAdapter= CheckOrderStatusAdapter(this)
-                _binding!!.rvCheckOrderStatus.adapter = checkOrderStatusAdapter
-                _binding!!.rvCheckOrderStatus.layoutManager =  LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-                state.data?.let {
-                    checkOrderStatusAdapter.checkorders(orders!!)
+        viewModel.paybycard.observe(this, Observer {
+            state-> ProcessPaybCard(state)
+        })
+
+        viewModel.updateccpayment.observe(this, Observer {
+            state -> Processupdatestatus(state)
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        payMayaCheckoutClient.onActivityResult(requestCode, resultCode, data)?.let {
+            when(resultCode){
+                -1->{
+
+                    viewModel.updateCCpayment(GlobalVariable.cCpaymentOrderDetails!!.id,convertUpdateccpayment.updateccpayment(GlobalVariable.cCpaymentOrderDetails!!.id,true))
 
                 }
-                val decimalFormat = DecimalFormat("#.00")
-                val formattedNumber = decimalFormat.format(state.data.orderPrice)
-                _binding.totalLinear.isVisible=true
-                _binding.txtTotalAmount.text="Total: ${formattedNumber.toString()}"
+                else ->{
+                    Toast.makeText(this,"GAGO∂",Toast.LENGTH_LONG).show()
+                }
+            }
+
+            return
+        }
+    }
+
+    private fun Processupdatestatus(state: ResultState<ResponseBody>){
+        when(state){
+            is ResultState.Loading ->{
+
+            }
+            is ResultState.Success->{
+
+
+                showdialog()
 
             }
             is ResultState.Error->{
                 hideProgressDialog()
-                if(orders.isNullOrEmpty())_binding.txtYourOrders.text="Come back when you have ordered"
-                _binding.totalLinear.isVisible=false
+                if(!isWatchStarted)
+                    watchPaybycardDetails()
+
+
             }
             else -> {}
         }
     }
+    private fun ProcessPaybCard(state: ResultState<CCpaymentOrderDetails>){
+        when(state){
+            is ResultState.Loading ->{
+
+            }
+            is ResultState.Success->{
+
+                if(state.data!=null){
+                    GlobalVariable.cCpaymentOrderDetails= state.data
+                    handler.removeCallbacksAndMessages(null);
+                    isWatchStarted=false
+                    checkOrderStatusAdapter= CheckOrderStatusAdapter(this)
+                _binding!!.rvCcDetails.adapter = checkOrderStatusAdapter
+                _binding!!.rvCcDetails.layoutManager =  LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+                state.data?.let {
+                    checkOrderStatusAdapter.checkorders(state.data.creditcardorderdetails!!)
+                }
+                    _binding.framLeft.isVisible=true
+                    _binding.txtWarning.isVisible=false
+                    _binding.rvCcDetails.isVisible=true
+                    _binding.txtTableNum.text="Table #: ${state.data.tableNumber}"
+                    _binding.txtDate.text=state.data.dateTimeStamp
+                    _binding.txtVat.text= "Vat: ${state.data.vat}"
+                    _binding.txtVatAmount.text="Vat amount: ${state.data.vatAmount}"
+                    _binding.txtDiscount.text="Vat exempt: ${state.data.discountAmount}"
+                    _binding.txtServiceCharge.text= "Service Fee: ${state.data.serviceCharge}"
+                    _binding.txtTotal.text="TOTAL: ${state.data.total}"
+
+                }
+
+
+            }
+            is ResultState.Error->{
+                hideProgressDialog()
+                _binding.framLeft.isVisible=false
+                _binding.txtWarning.isVisible=true
+                _binding.rvCcDetails.isVisible=false
+                if(!isWatchStarted)
+                watchPaybycardDetails()
+
+
+            }
+            else -> {}
+        }
+    }
+
+    val handler: Handler = Handler()
+    val delay = 10000
+    var isWatchStarted:Boolean=false
+
+    val watchPaybycardDetails:()-> Unit={
+        isWatchStarted=true
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                viewModel.PaybyCard(GlobalVariable.tablenumber!!)
+                handler.postDelayed(this, delay.toLong())
+            }
+        }, delay.toLong())
+    }
+
 
     val backpress={
         onBackPressed()
@@ -103,20 +194,24 @@ class OrderStatus : BaseActivity() {
         finish()
     }
 
-    val playvideo={
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.companyprofile)
 
-        // Set up a media controller to control the video playback
-        val mediaController = MediaController(this)
-        mediaController.setAnchorView(_binding.videoScreen)
-        _binding.videoScreen.setMediaController(mediaController)
 
-        // Set the video URI to the VideoView and start playing the video
-        _binding.videoScreen.setVideoURI(videoUri)
-        _binding.videoScreen.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer ->
-            mediaPlayer.isLooping = true // Set this to true if you want the video to loop
-            mediaPlayer.start()
-        })
+    val showdialog={
+        AestheticDialog.Builder(this, DialogStyle.FLASH, DialogType.SUCCESS)
+            .setTitle("Payment Success")
+            .setMessage("Please wait for receipt. Thank you")
+            .setCancelable(false)
+            .setDarkMode(false)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    backpress()
+                }
+            })
+            .show()
     }
+
 
 }

@@ -10,11 +10,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.tableorderingapp.databinding.AdapterAmountCheckBinding
 import com.example.tableorderingapp.databinding.AdapterTotalorderBinding
 import com.example.tableorderingapp.domain.model.request.Orderdetail
+import com.example.tableorderingapp.domain.model.response.Creditcardorderdetail
 import com.example.tableorderingapp.presentation.activity.CheckoutActivity
 import java.text.DecimalFormat
 
 class CheckOrderStatusAdapter(private val activity: Activity): RecyclerView.Adapter<CheckOrderStatusAdapter.ViewHolder>() {
-    private var allorders:List<Orderdetail> = listOf()
+    private var allorders:List<Creditcardorderdetail> = listOf()
 
     class ViewHolder(view:AdapterAmountCheckBinding ) : RecyclerView.ViewHolder(view.root) {
         val quntity = view.tvQuantity
@@ -54,7 +55,7 @@ class CheckOrderStatusAdapter(private val activity: Activity): RecyclerView.Adap
         holder.quntity.text= orders.qty.toString().plus("x")
     }
 
-    fun checkorders(list: List<Orderdetail>) {
+    fun checkorders(list: List<Creditcardorderdetail>) {
         allorders = list
         notifyDataSetChanged()
     }

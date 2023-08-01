@@ -2,8 +2,10 @@ package com.example.tableorderingapp.domain.network
 
 import com.example.tableorderingapp.domain.model.request.NeedAssistance
 import com.example.tableorderingapp.domain.model.request.PostTableOrder
+import com.example.tableorderingapp.domain.model.request.updateCCpayment
 import com.example.tableorderingapp.domain.model.response.AllMenuModelItem
 import com.example.tableorderingapp.domain.model.response.AssistanceStatusResponse
+import com.example.tableorderingapp.domain.model.response.CCpaymentOrderDetails
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -17,6 +19,12 @@ interface NetworkService {
 
     @GET("TableOrder/ordertableamount/{tablenumber}")
     suspend fun getAmountOrOrders(@Path("tablenumber")tablenumber:Int): PostTableOrder
+
+    @GET("CreditCardPayments/GetItemForCCPayment/{tablenumber}")
+    suspend fun PaybyCard(@Path("tablenumber")tablenumber:Int): CCpaymentOrderDetails
+
+    @PUT("CreditCardPayments/{tablenumber}")
+    suspend fun UpdatePaybyCard(@Path("tablenumber")tablenumber:Int,@Body updateCCpayment: updateCCpayment): ResponseBody
 
     @GET("TableAssistance/GetAssistanceStatus")
     suspend fun getAssistanceStatus(@Query("tablenumber")tablenumber:Int): AssistanceStatusResponse

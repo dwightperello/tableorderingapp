@@ -2,8 +2,10 @@ package com.example.tableorderingapp.domain.repository
 
 import com.example.tableorderingapp.domain.model.request.NeedAssistance
 import com.example.tableorderingapp.domain.model.request.PostTableOrder
+import com.example.tableorderingapp.domain.model.request.updateCCpayment
 import com.example.tableorderingapp.domain.model.response.AllMenuModelItem
 import com.example.tableorderingapp.domain.model.response.AssistanceStatusResponse
+import com.example.tableorderingapp.domain.model.response.CCpaymentOrderDetails
 import com.example.tableorderingapp.domain.network.NetworkService
 import com.example.tableorderingapp.util.ResultState
 import kotlinx.coroutines.flow.Flow
@@ -73,4 +75,35 @@ class NetworkRepositoryImpl(private val networkService: NetworkService):NetworkR
             emit(ResultState.Error(e))
         }
     }
+
+    override suspend fun PayByCard(
+        tablenumber: Int
+    ): Flow<ResultState<CCpaymentOrderDetails>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val response = networkService.PaybyCard(tablenumber)
+            emit(ResultState.Success(response))
+
+        }
+        catch (e: Exception) {
+            emit(ResultState.Error(e))
+        }
+    }
+
+    override suspend fun UpdatePaybyCard(
+        tablenumber: Int,
+        updateCCpayment: updateCCpayment
+    ): Flow<ResultState<ResponseBody>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val response = networkService.UpdatePaybyCard(tablenumber,updateCCpayment)
+            emit(ResultState.Success(response))
+
+        }
+        catch (e: Exception) {
+            emit(ResultState.Error(e))
+        }
+    }
+
+
 }
